@@ -22,8 +22,19 @@ html
                     input(class="form-control", id="form-api", name="form-api", type="text", value="")
                 div(class="form-group")
                     label(for="form-perweek") Expected hours per day
-                    input(class="form-control", id="form-perweek", name="form-perweek", type="text", value="7.7")
+                    input(class="form-control", id="form-perday", name="form-perweek", type="text", value="7.7")
                 div(class="form-group")
                     input(type="submit", value="calculate overtime", class="btn btn-default")
 
-        div(id="out")
+            h1 Result
+            table(class="table table-striped")
+                tr
+                    th Required
+                    td(id="required")
+                tr
+                    th Actual
+                    td(id="actual")
+                tr
+                    th Overtime
+                    td(id="overtime")
+

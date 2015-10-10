@@ -1,24 +1,32 @@
+var id = function (selector) {
+    return document.getElementById(selector);
+};
+
+var generateDayRange = function (from, to) {
+    result = [from];
+
+    while (result[result.length-1] <= to) {
+        var nextDay = new Date();
+        var currentDay = result[result.length-1];
+        nextDay.setTime(currentDay.getTime() + (24 * 60 * 60 * 1000));
+        result.push(nextDay);
+    }
+
+    return result;
+};
+
 document.addEventListener("DOMContentLoaded", function () {
-    var form = document.getElementById('mite-form');
-    var api = document.getElementById('form-api');
-    var org= document.getElementById('form-org');
-    var out = document.getElementById('out');
-    var hoursPerDay = document.getElementById('form-perweek');
+    var form = id('mite-form');
+    var api = id('form-api');
+    var org= id('form-org');
+    var required = id('required');
+    var actual = id('actual');
+    var overtime = id('overtime');
+    var perday = id('form-perday');
 
     api.value = localStorage.getItem('apiKey');
 
-    var generateDayRange = function (from, to) {
-        result = [from];
 
-        while (result[result.length-1] <= to) {
-            var nextDay = new Date();
-            var currentDay = result[result.length-1];
-            nextDay.setTime(currentDay.getTime() + (24 * 60 * 60 * 1000));
-            result.push(nextDay);
-        }
-
-        return result;
-    };
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -26,23 +34,30 @@ document.addEventListener("DOMContentLoaded", function () {
         // save api key in localstorage
         localStorage.setItem('apiKey', api.value);
 
+        // convert inputs to correct nubmers
+        var hoursPerDay = parseFloat(perday.value, 10);
+
         var url = '/time-entries.json?' + $.param({
             apiKey: api.value,
             org: org.value
         });
 
-
-
         fetch(url).then(function (response) {
-            return response.json();
+            return Promise.all([response, response.json()]);
         }).then(function (result) {
-            var days = result.map(function (entry) {
+            var response = result[0];
+            var json = result[1];
+
+            if (response.status >= 400) {
+                throw json.message;
+            }
+
+            // get all the weekdays from the first to the current day
+            var days = json.map(function (entry) {
                 return new Date(entry.time_entry_group.day);
             }).sort(function (a, b) {
                 return a - b;
             });
-
-
             var dayRange = generateDayRange(days[0], days[days.length-1]);
             var workDays = dayRange.filter(function (date) {
                 var day = date.getDay();
@@ -50,24 +65,29 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             var workDaysNumber = workDays.length;
 
-            var minutesTotal = result.map(function (entry) {
+            // calculate the total amount of worked time
+            var minutesTotal = json.map(function (entry) {
                 return entry.time_entry_group.minutes;
             }).reduce(function (previous, current) {
                 return previous + current;
             });
 
+            var requiredMinutesTotal = hoursPerDay * 60 * workDaysNumber;
+            var differenceMinutesTotal = minutesTotal - requiredMinutesTotal;
+
             var workedHours = Math.floor(minutesTotal/60);
-            var workedMintues = minutesTotal % 60;
-            hoursPerDay = parseFloat(hoursPerDay.value, 10);
-            var requiredHours = Math.floor(workDaysNumber * hoursPerDay);
-            var requiredMinutes = Math.floor((workDaysNumber * hoursPerDay * 60) % 60);
+            var workedMinutes = minutesTotal % 60;
+            var requiredHours = Math.floor(requiredMinutesTotal/60);
+            var requiredMinutes = requiredMinutesTotal % 60;
+            var overtimeHours = Math.floor(differenceMinutesTotal/60);
+            var overtimeMinutes = differenceMinutesTotal % 60;
 
-            info = "Required " + requiredHours + " hours and " + requiredMinutes + " minutes";
-            info += "Worked " + workedHours + " hours and " + workedMintues + " minutes";
-
-            out.innerHTML = info;
+            required.innerHTML = requiredHours + ':' + requiredMinutes;
+            actual.innerHTML = workedHours + ':' + workedMinutes;
+            overtime.innerHTML = overtimeHours + ':' + overtimeMinutes;
         }).catch(function (error) {
             console.log(error);
+            alert(error);
         });
 
         return false;
