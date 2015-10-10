@@ -23,10 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
     var actual = id('actual');
     var overtime = id('overtime');
     var perday = id('form-perday');
+    var baseUrl = document.getElementsByTagName('base')[0].href;
 
     api.value = localStorage.getItem('apiKey');
-
-
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -37,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // convert inputs to correct nubmers
         var hoursPerDay = parseFloat(perday.value, 10);
 
-        var url = '/time-entries.json?' + $.param({
+        var url = baseUrl + 'time-entries.json?' + $.param({
             apiKey: api.value,
             org: org.value
         });
