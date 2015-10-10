@@ -26,12 +26,16 @@ document.addEventListener("DOMContentLoaded", function () {
     var baseUrl = document.getElementsByTagName('base')[0].href;
 
     api.value = localStorage.getItem('apiKey');
+    org.value = localStorage.getItem('org') || 'foryouandyourcustomers';
+    perday.value = localStorage.getItem('perday') || '7.7';
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
         // save api key in localstorage
         localStorage.setItem('apiKey', api.value);
+        localStorage.setItem('org', org.value);
+        localStorage.setItem('perday', perday.value);
 
         // convert inputs to correct nubmers
         var hoursPerDay = parseFloat(perday.value, 10);

@@ -27,13 +27,13 @@ html
             form#mite-form
                 div.form-group
                     label(for="form-org") Mite Organization (https://ORGANIZATION.mite.yo.lk/)
-                    input.form-control#form-org(name="form-org", type="text", value="foryouandyourcustomers")
+                    input.form-control#form-org(name="form-org", type="text", required)
                 div.form-group
                     label(for="form-api") Mite API key
-                    input.form-control#form-api(name="form-api", type="text", value="")
+                    input.form-control#form-api(name="form-api", type="text", required)
                 div.form-group
                     label(for="form-perweek") Required hours per day
-                    input.form-control#form-perday(name="form-perweek", type="text", value="7.7")
+                    input.form-control#form-perday(name="form-perweek", type="number", step="0.1" required)
                 div.form-group
                     input(type="submit", value="calculate overtime", class="btn btn-default")
 
