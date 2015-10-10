@@ -91,4 +91,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return false;
     });
+
+    // auto submit if api key present
+    if (api.value) {
+        form.dispatchEvent(new Event('submit'));
+    }
+
 });
