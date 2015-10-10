@@ -12,19 +12,17 @@ html
     body
         div(class="container")
             h1 Calculate Your Mite Overtime
+            p The API key needs to be enabled in the My user section (Do not forget to save your settings). Copy the key from there.
             form(id="mite-form")
                 div(class="form-group")
-                    label(for="form-org") Mite Organization
+                    label(for="form-org") Mite Organization (https://ORGANIZATION.mite.yo.lk/)
                     input(class="form-control", id="form-org", name="form-org", type="text", value="foryouandyourcustomers")
                 div(class="form-group")
-                    label(for="form-api") Mite Api key
+                    label(for="form-api") Mite API key
                     input(class="form-control", id="form-api", name="form-api", type="text", value="")
                 div(class="form-group")
-                    label(for="form-since") Calculate since
-                    input(class="form-control", id="form-since", name="form-since", type="date")
-                div(class="form-group")
-                    label(for="form-perweek") Expected days per week
-                    input(class="form-control", id="form-perweek", name="form-perweek", type="text", value="48.5")
+                    label(for="form-perweek") Expected hours per day
+                    input(class="form-control", id="form-perweek", name="form-perweek", type="text", value="7.7")
                 div(class="form-group")
                     input(type="submit", value="calculate overtime", class="btn btn-default")
 
