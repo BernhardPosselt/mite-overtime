@@ -14,6 +14,7 @@ client.prototype = {
         let options = {
             url: this.baseUrl + path,
             headers: {
+                'User-Agent': 'mite-overtime/v0.0.1 (https://github.com/BernhardPosselt/mite-overtime)',
                 'X-MiteApiKey': this.apiKey,
                 accept: '*/*'
             }
