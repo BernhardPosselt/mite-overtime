@@ -15,7 +15,7 @@ var generateDayRange = function (from, to) {
     return result;
 };
 
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function () {
     var form = id('mite-form');
     var api = id('form-api');
     var org= id('form-org');
