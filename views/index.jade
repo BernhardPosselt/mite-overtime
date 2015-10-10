@@ -1,0 +1,31 @@
+doctype html
+html
+    head
+        meta(charset="UTF-8")
+        title Mite Overtime
+        link(rel="stylesheet", href="../bower_components/bootstrap/dist/css/bootstrap.min.css")
+        link(rel="stylesheet", href="../bower_components/bootstrap/dist/css/bootstrap-theme.css")
+        script(src="bower_components/jquery/dist/jquery.min.js")
+        script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
+        script(src="javascripts/script.js")
+
+    body
+        div(class="container")
+            h1 Calculate Your Mite Overtime
+            form(id="mite-form")
+                div(class="form-group")
+                    label(for="form-org") Mite Organization
+                    input(class="form-control", id="form-org", name="form-org", type="text", value="foryouandyourcustomers")
+                div(class="form-group")
+                    label(for="form-api") Mite Api key
+                    input(class="form-control", id="form-api", name="form-api", type="text", value="4b85c92824bbf9e9")
+                div(class="form-group")
+                    label(for="form-since") Calculate since
+                    input(class="form-control", id="form-since", name="form-since", type="date")
+                div(class="form-group")
+                    label(for="form-perweek") Expected days per week
+                    input(class="form-control", id="form-perweek", name="form-perweek", type="text", value="48.5")
+                div(class="form-group")
+                    input(type="submit", value="calculate overtime", class="btn btn-default")
+
+    div(id="result") hi
