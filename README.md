@@ -1,5 +1,7 @@
 # Mite Overtime
+Calculate your overtime from mite entries
 
+**Dependencies**:
 * Node >=4.0.0
 
 # Setup
