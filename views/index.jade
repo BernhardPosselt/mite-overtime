@@ -1,6 +1,7 @@
 doctype html
 html
     head
+        base(url=base)
         meta(charset="UTF-8")
         title Mite Overtime
         link(rel="stylesheet", href="bower_components/bootstrap/dist/css/bootstrap.min.css")
@@ -10,31 +11,31 @@ html
         script(src="javascripts/script.js")
 
     body
-        div(class="container")
+        div.container
             h1 Calculate Your Mite Overtime
             p The API key needs to be enabled in the My user section (Do not forget to save your settings). Copy the key from there.
-            form(id="mite-form")
-                div(class="form-group")
+            form#mite-form
+                div.form-group
                     label(for="form-org") Mite Organization (https://ORGANIZATION.mite.yo.lk/)
-                    input(class="form-control", id="form-org", name="form-org", type="text", value="foryouandyourcustomers")
-                div(class="form-group")
+                    input.form-control#form-org(name="form-org", type="text", value="foryouandyourcustomers")
+                div.form-group
                     label(for="form-api") Mite API key
-                    input(class="form-control", id="form-api", name="form-api", type="text", value="")
-                div(class="form-group")
+                    input.form-control#form-api(name="form-api", type="text", value="")
+                div.form-group
                     label(for="form-perweek") Expected hours per day
-                    input(class="form-control", id="form-perday", name="form-perweek", type="text", value="7.7")
-                div(class="form-group")
+                    input.form-control#form-perday(name="form-perweek", type="text", value="7.7")
+                div.form-group
                     input(type="submit", value="calculate overtime", class="btn btn-default")
 
             h1 Result
-            table(class="table table-striped")
+            table.table.table-striped
                 tr
                     th Required
-                    td(id="required")
+                    td#required
                 tr
                     th Actual
-                    td(id="actual")
+                    td#actual
                 tr
                     th Overtime
-                    td(id="overtime")
+                    td#overtime
 
