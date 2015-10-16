@@ -5,11 +5,15 @@ var id = function (selector) {
 var generateDayRange = function (from, to) {
     result = [from];
 
-    while (result[result.length-1] <= to) {
+    while (true) {
         var nextDay = new Date();
         var currentDay = result[result.length-1];
         nextDay.setTime(currentDay.getTime() + (24 * 60 * 60 * 1000));
-        result.push(nextDay);
+        if (nextDay.getTime() <= to.getTime()) {
+            result.push(nextDay);
+        } else {
+            break;
+        }
     }
 
     return result;
